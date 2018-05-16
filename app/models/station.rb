@@ -20,4 +20,8 @@ class Station
       )
     end
   end
+
+  def self.get_nearest(params)
+    
+  end
 end

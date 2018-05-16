@@ -40,4 +40,17 @@ describe Station do
     expect(station.distance).to eq(stations_json.first[:distance])
     expect(station.access_times).to eq(stations_json.first[:access_days_time])
   end
+
+  it 'should be able to get the nearest stations with parameters' do
+    VCR.use_cassette('nearest_stations') do
+      stations = Station.get_nearest(
+        location: 80203,
+        radius: 6.0,
+        type: 'ELEC,LGP',
+        limit: 10
+      )
+
+      expect(stations.length).to be(10)
+    end
+  end
 end
