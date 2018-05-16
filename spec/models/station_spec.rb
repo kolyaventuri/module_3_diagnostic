@@ -28,9 +28,11 @@ describe Station do
     stations = Station::from_list(stations_json)
 
     expect(stations.length).to be(2)
-    expect(stations.each).to be_a Station
+    stations.each do |station|
+      expect(station).to be_a Station
+    end
 
-    station = station.first
+    station = stations.first
 
     expect(station.name).to eq(stations_json.first[:station_name])
     expect(station.address).to eq(stations_json.first[:street_address])
