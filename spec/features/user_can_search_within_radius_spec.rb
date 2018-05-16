@@ -6,9 +6,10 @@
 # Then I should see a list of the 10 closest stations within 6 miles sorted by distance
 # And the stations should be limited to Electric and Propane
 # And for each of the stations I should see Name, Address, Fuel Types, Distance, and Access Times
+require 'rails_helper'
 
-contet 'As a user, when I visit \'/\'' do
-  context 'and fill in the search form (using 80203) and click locate' do
+context 'As a user, when I visit \'/\'' do
+  context  'and fill in the search form (using 80203) and click locate' do
     let(:zip) { '80203' }
     let(:valid_types) { ['Electric', 'Propane'] }
     let(:attributes) { ['name', 'address', 'fuel-type', 'distance', 'access-times'] }
