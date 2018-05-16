@@ -3,15 +3,15 @@
 <table class="table stations">
     <thead>
         <tr>
-            <tr>Name</tr>
-            <tr>Address</tr>
-            <tr>Fuel Type(s)</tr>
-            <tr>Distance</tr>
-            <tr>Access Time(s)</tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Fuel Type(s)</th>
+            <th>Distance</th>
+            <th>Access Time(s)</th>
         </tr>
     </thead>
     <tbody>
-        <%= @stations.each do |station| %>
+        <% @stations.each do |station| %>
             <tr>
                 <td data-attribute="name"><%= station.name %></td>
                 <td data-attribute="address"><%= station.address %></td>
