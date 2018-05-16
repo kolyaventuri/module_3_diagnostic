@@ -27,11 +27,12 @@ context 'As a user, when I visit \'/\'' do
           stations = find_all('tr')
 
           expect(stations.length).to be(10)
-          last = -1
+          last = -1.0
 
           stations.each do |station|
             within(station) do
-              distance = find('[data-attribute="distance"]').gsub(/\d*\.\d*/, '').to_f
+              distance = find('[data-attribute="distance"]').text.gsub(/[^\d*\.\d*]/, '').to_f
+              
               expect(last).to be < distance
               last = distance
             end
