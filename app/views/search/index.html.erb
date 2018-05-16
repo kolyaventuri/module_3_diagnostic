@@ -1,0 +1,24 @@
+<h1>Stations near <%= @zip_code %></h1>
+
+<table class="table stations">
+    <thead>
+        <tr>
+            <tr>Name</tr>
+            <tr>Address</tr>
+            <tr>Fuel Type(s)</tr>
+            <tr>Distance</tr>
+            <tr>Access Time(s)</tr>
+        </tr>
+    </thead>
+    <tbody>
+        <%= @stations.each do |station| %>
+            <tr>
+                <td data-attribute="name">@station.name</td>
+                <td data-attribute="address">@station.address</td>
+                <td data-attribute="fuel-type">@station.fuel_type.to_sentence</td>
+                <td data-attribute="distance">@station.distance</td>
+                <td data-attribute="access-times">@station.acesss_times.to_sentence</td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

@@ -21,6 +21,7 @@ context 'As a user, when I visit \'/\'' do
       click_on 'Locate'
 
       expect(current_path).to eq('/search')
+      expect(page).to have_content("Stations near #{zip}")
 
       within('.stations tbody') do
         stations = find_all('tr')
