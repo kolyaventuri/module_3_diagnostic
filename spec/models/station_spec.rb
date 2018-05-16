@@ -20,4 +20,22 @@ describe Station do
     expect(station.distance).to eq(station_data[:distance])
     expect(station.access_times).to eq(station_data[:access_times])
   end
+
+  it 'should be able to load a collection of stations' do
+    stations_json = File.read('./spec/fixtures/stations.json')
+    stations_json = JSON.parse(stations_json, symbolize_names: true)
+
+    stations = Station::from_list(stations_json)
+
+    expect(stations.length).to be(2)
+    expect(stations.each).to be_a Station
+
+    station = station.first
+
+    expect(station.name).to eq(stations_json.first[:station_name])
+    expect(station.address).to eq(stations_json.first[:street_address])
+    expect(station.fuel_types).to eq(stations_json.first[:fuel_type_code])
+    expect(station.distance).to eq(stations_json.first[:distance])
+    expect(station.access_times).to eq(stations_json.first[:access_days_time])
+  end
 end
