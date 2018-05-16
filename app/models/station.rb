@@ -7,6 +7,9 @@ class Station
     @fuel_types = opts[:fuel_types]
     @distance = opts[:distance]
     @access_times = opts[:access_times]
+
+    @fuel_types.gsub!('ELEC', 'Electric')
+    @fuel_types.gsub!('LGP', 'Propane')
   end
 
   def self.from_list(stations)
