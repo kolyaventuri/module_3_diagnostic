@@ -15,62 +15,67 @@ context 'As a user, when I visit \'/\'' do
     let(:attributes) { ['name', 'address', 'fuel-type', 'distance', 'access-times'] }
 
     scenario 'I should see the 10 closest stations in 6 miles, sorted by distance' do
-      visit '/'
+      VCR.use_cassette('nearest_stations') do
+        visit '/'
 
-      fill_in 'q', with: zip
-      click_on 'Locate'
+        fill_in 'q', with: zip
+        click_on 'Locate'
 
-      expect(current_path).to eq('/search')
-      expect(page).to have_content("Stations near #{zip}")
+        expect(current_path).to eq('/search')
 
-      within('.stations tbody') do
-        stations = find_all('tr')
+        within('.stations tbody') do
+          stations = find_all('tr')
 
-        expect(stations.length).to be(10)
-        last = -1
+          expect(stations.length).to be(10)
+          last = -1
 
-        stations.each do |station|
-          within(station) do
-            distance = find('[data-attribute="distance"]').gsub(/\d*\.\d*/, '').to_f
-            expect(last).to be < distance
-            last = distance
+          stations.each do |station|
+            within(station) do
+              distance = find('[data-attribute="distance"]').gsub(/\d*\.\d*/, '').to_f
+              expect(last).to be < distance
+              last = distance
+            end
           end
         end
       end
     end
 
     scenario 'the stations should be limited to Electric and Propane' do
-      visit '/'
+      VCR.use_cassette('nearest_stations') do
+        visit '/'
 
-      fill_in 'q', with: zip
-      click_on 'Locate'
+        fill_in 'q', with: zip
+        click_on 'Locate'
 
-      within('.stations .tbody') do
-        stations = find_all('tr')
+        within('.stations tbody') do
+          stations = find_all('tr')
 
-        stations.each do |station|
-          within(station) do
-            type = find('[data-attribute="fuel-type"]')
+          stations.each do |station|
+            within(station) do
+              type = find('[data-attribute="fuel-type"]')
 
-            expect(type.text).to include(page.body)
+              expect(valid_types).to include(type.text)
+            end
           end
         end
       end
     end
 
     scenario 'I should see the stations name, address, fuel types, distance, and access times' do
-      visit '/'
-      fill_in 'q', with: zip
-      click_on 'Locate'
+      VCR.use_cassette('nearest_stations') do
+        visit '/'
+        fill_in 'q', with: zip
+        click_on 'Locate'
 
-      within('.stations .tbody') do
-        stations = find_all('tr')
+        within('.stations tbody') do
+          stations = find_all('tr')
 
-        stations.each do |station|
-          within(station) do
-            attributes.each do |attribute|
-              data = find("[data-attribute='#{attribute}']")
-              expect(data.text).to_not be_empty
+          stations.each do |station|
+            within(station) do
+              attributes.each do |attribute|
+                data = find("[data-attribute='#{attribute}']")
+                expect(data.text).to_not be_empty
+              end
             end
           end
         end
