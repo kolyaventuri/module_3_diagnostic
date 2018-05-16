@@ -18,6 +18,6 @@ describe Station do
     expect(station.address).to eq(station_data[:address])
     expect(station.fuel_types).to eq(station_data[:fuel_types])
     expect(station.distance).to eq(station_data[:distance])
-    expect(station.name.access_times).to eq(station_data[:access_times])
+    expect(station.access_times).to eq(station_data[:access_times])
   end
 end
