@@ -22,6 +22,8 @@ class Station
   end
 
   def self.get_nearest(params)
-    
+    response = NRELService::make_request('/alt-fuel-stations/v1/nearest.json', params)
+
+    from_list(response[:fuel_stations])
   end
 end

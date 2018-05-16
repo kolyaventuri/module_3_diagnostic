@@ -51,6 +51,7 @@ describe Station do
       )
 
       expect(stations.length).to be(10)
+      expect(stations.first).to be_a Station
     end
   end
 end
